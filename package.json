@@ -1,0 +1,38 @@
+{
+  "name": "dpbc",
+  "version": "1.0.0",
+  "description": "A protocol-based binary codec that can encode and decode objects, strings, and numbers to and from binary format",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "exports": {
+    "require": "./index.js",
+    "import": "./index.js"
+  },
+  "type": "commonjs",
+  "keywords": [
+    "binary",
+    "codec",
+    "encode",
+    "decode",
+    "protocol",
+    "buffer",
+    "serialization",
+    "deserialization"
+  ],
+  "author": "Kim Dae-hyun",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eogus9145/dpbc"
+  },
+  "bugs": {
+    "url": "https://github.com/eogus9145/dpbc/issues"
+  },
+  "homepage": "https://github.com/eogus9145/dpbc#readme",
+  "engines": {
+    "node": ">=14.6.0"
+  },
+  "files": [
+    "index.js"
+  ]
+}
