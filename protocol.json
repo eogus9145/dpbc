@@ -1,9 +1,0 @@
-{
-    "name": "testProtocol",
-    "fields": [
-        { "name": "int", "type": "int32" },
-        { "name": "str", "type": "string" },
-        { "name": "arr", "type": "array", "nullable": true },
-        { "name": "obj", "type": "object", "nullable": true }
-    ]
-}
