@@ -5,32 +5,6 @@ class DPBC {
 
     constructor() {
         this.protocol = null;
-        this.protocolList = {};
-    }
-
-    async addProtocol(path) {
-        const invalidPathError = "프로토콜 정의 JSON파일 경로가 올바르지 않습니다.";
-        if(!path) throw new Error(invalidPathError);
-        let jsonStr;
-        try {
-            jsonStr = await fs.readFile(path);
-        } catch(err) {
-            throw new Error(invalidPathError);
-        }
-        const jsonObj = JSON.parse(jsonStr);
-        const protocolName = jsonObj.name;
-        this.protocolList[protocolName] = jsonObj;
-    }
-
-    deleteProtocol(name) {
-        delete this.protocolList[name];
-        if(this.protocol.name == name) {
-            this.protocol = null;
-        }
-    }
-
-    useProtocol(name) {
-        this.protocol = this.protocolList[name];
     }
 
     async setProtocol(protocolJsonPath) {
