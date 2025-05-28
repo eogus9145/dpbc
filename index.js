@@ -6,6 +6,7 @@ class DPBC {
     constructor() {
         this.protocol = null;
         this.protocolList = {};
+        this.protocolType = null;
     }
 
     async addProtocol(path) {
@@ -24,9 +25,7 @@ class DPBC {
 
     deleteProtocol(name) {
         delete this.protocolList[name];
-        if(this.protocol.name == name) {
-            this.protocol = null;
-        }
+        //if(this.protocol.name == name) this.protocol = null;
     }
 
     useProtocol(name) {
@@ -37,16 +36,23 @@ class DPBC {
         this.protocol = (protocolJsonPath) ? JSON.parse(await fs.readFile(protocolJsonPath)) : null;
     }
 
+    request() {
+        this.protocolType = 'request';
+        return this;
+    }
+    
+    response() {
+        this.protocolType = 'response';
+        return this;
+    }
+
     encode(target) {
-        return (this.protocol) ? this.#encodeByProtocol(target) : Buffer.from(JSON.stringify(target), 'utf8');
-    }
+        if(!this.protocolType) throw new Error("프로토콜 요청 또는 응답을 설정해 주세요");
+        const msgType = this.protocolType;
+        this.protocolType = null;
 
-    decode(target) {
-        return (this.protocol) ? this.#decodeByProtocol(target) : JSON.parse(target.toString('utf8'));
-    }
-
-    #encodeByProtocol(target) {
-        const { name, fields } = this.protocol;
+        const name = this.protocol.name;
+        const fields = this.protocol[msgType];
 
         const notObjectErrorMsg = `객체가 정의된 ${name} 프로토콜과 일치하지 않습니다.`;
         if(typeof target !== 'object') throw new Error(notObjectErrorMsg);
@@ -109,8 +115,15 @@ class DPBC {
         return resultBuffer;
     }
 
-    #decodeByProtocol(target) {
-        const { name, fields } = this.protocol;
+    decode(target) {
+
+        if(!this.protocolType) throw new Error("프로토콜 요청 또는 응답을 설정해 주세요");
+        const msgType = this.protocolType;
+        this.protocolType = null;
+        
+        const name = this.protocol.name;
+        const fields = this.protocol[msgType];
+
         if(!Buffer.isBuffer(target)) throw new Error("디코딩 대상이 이진 바이너리 데이터가 아닙니다.");
         let buffer = target;
         let offset = 0;

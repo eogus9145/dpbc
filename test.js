@@ -1,36 +1,3 @@
-# DPBC(Daehyun's Protocol Binary Codec)
-
-> A protocol-based binary codec that can encode and decode objects, strings, and numbers to and from binary format.
-
-
-## Install
-
-```
-$ npm install dpbc
-```
-
-## Define your own protocol as json file
-```json
-{
-    "name": "testProtocol",
-    "request" : [
-        { "name": "int", "type": "int32" },
-        { "name": "str", "type": "string" },
-        { "name": "arr", "type": "array", "nullable": true },
-        { "name": "obj", "type": "object", "nullable": true }
-    ],
-    "response" : [
-        { "name": "int", "type": "int32" },
-        { "name": "str", "type": "string" },
-        { "name": "arr", "type": "array", "nullable": true },
-        { "name": "obj", "type": "object", "nullable": true }
-    ]
-}
-```
-
-## Usage
-
-```js
 const path = require('path');
 const DPBC = require('dpbc');
 
@@ -80,7 +47,3 @@ const main = async () => {
 }
 
 main();
-```
-
-## License
-This project is licensed under the [MIT License](./license).
